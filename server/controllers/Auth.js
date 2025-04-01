@@ -23,7 +23,7 @@ export const registerAdmin = async(req,res)=>{
 
         await newUser.save();
 
-        res.status(201).json({ok:true,user:newUser})
+        res.json({ok:true,user:newUser})
 
 
     }catch(err){
