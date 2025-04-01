@@ -9,10 +9,35 @@ import {
 } from "@mui/material";
 import loginbg from "../../assets/loginbg.png";
 import { Link } from "react-router-dom";
-import Register from "./Register";
 import { motion } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [isRegister, setIsRegister] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    try{
+      const {data} = await axios.post('http://localhost:9000/admin/login',{email,password});
+      if(data?.err){
+        toast.error(data?.err);
+
+      
+      }
+
+      if(data?.token){
+        toast.success('Login Success');
+        navigate('/dashboard')
+      }
+
+
+    }catch(err){
+      console.log(err);
+    }
+  }
   return (
     <>
       <Grid container spacing={2}>
@@ -159,7 +184,10 @@ const Login = () => {
                 top: "23px",
               }}
               >
-              <TextField
+                <form onSubmit={handleSubmit} style={{display:'flex',flexDirection:'column'}}>
+
+             
+              <TextField onChange={(e)=>setEmail(e.target.value)}
                 sx={{
                   background: "#FFFFFF",
                   width: "307px",
@@ -167,7 +195,7 @@ const Login = () => {
                 }}
                 placeholder="Email Address"
               ></TextField>
-              <TextField
+              <TextField onChange={(e)=>setPassword(e.target.value)}
                 sx={{
                   background: "#FFFFFF",
 
@@ -176,7 +204,7 @@ const Login = () => {
                 }}
                 placeholder="Password"
               ></TextField>
-              <Button
+              <Button type="submit"
                 sx={{
                   width: "307px",
                   height: "57px",
@@ -196,6 +224,7 @@ const Login = () => {
                   Login
                 </Typography>
               </Button>
+              </form>
               <Box
                 sx={{
                   display: "flex",
