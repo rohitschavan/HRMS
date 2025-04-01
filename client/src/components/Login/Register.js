@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import loginbg from "../../assets/loginbg.png";
 import { Link } from "react-router-dom";
-import Register from "./Register";
+
 import { motion } from "framer-motion";
-const Login = () => {
-  const [isRegister, setIsRegister] = useState(false);
+const Register = () => {
+
   return (
     <>
       <Grid container spacing={2}>
@@ -98,7 +98,7 @@ const Login = () => {
           </Box>
         </Grid>
         <Grid size={{ lg: 6, sm: 12, md: 6, xs: 12 }}>
-        
+         
             <Box
             sx={{
               height: "100%",
@@ -108,9 +108,9 @@ const Login = () => {
               flexDirection: "column",
             }}
            >
-            <motion.div
-              initial={{ opacity: 0, scale:0.9  }}
-              animate={{ opacity: 1, scale:1}}
+               <motion.div
+              initial={{ opacity: 0,scale:0.9 }}
+              animate={{ opacity: 1,scale:1 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
             
@@ -120,10 +120,9 @@ const Login = () => {
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
-              
+           
               }}
             >
-        
               <Typography
                 sx={{
                   fontFamily: "'Poppins'",
@@ -134,7 +133,7 @@ const Login = () => {
                   color: "#333333",
                 }}
               >
-                Hello Again!
+                Register Page
               </Typography>
               <Typography
                 sx={{
@@ -146,9 +145,8 @@ const Login = () => {
                   color: "#333333",
                 }}
               >
-                Welcome Back
+              For Admin
               </Typography>
-   
             </Box>
 
             <Box
@@ -158,7 +156,7 @@ const Login = () => {
                 position: "relative",
                 top: "23px",
               }}
-              >
+            >
               <TextField
                 sx={{
                   background: "#FFFFFF",
@@ -176,6 +174,25 @@ const Login = () => {
                 }}
                 placeholder="Password"
               ></TextField>
+              <TextField
+                sx={{
+                  background: "#FFFFFF",
+
+                  width: "307px",
+                  height: "60px",
+                }}
+                placeholder="Role"
+              ></TextField>
+              <TextField
+                sx={{
+                  background: "#FFFFFF",
+
+                  width: "307px",
+                  height: "60px",
+                }}
+                placeholder="Hobby"
+              ></TextField>
+              
               <Button
                 sx={{
                   width: "307px",
@@ -209,12 +226,11 @@ const Login = () => {
                 }}
               >
                 <Link style={{}}>Forgot Password</Link>
-                <Link to='/register'>Register</Link>
+                <Link to='/'> Back to Login</Link>
               </Box>
             </Box>
               </motion.div>
           </Box>
-
           
         </Grid>
       </Grid>
@@ -222,5 +238,5 @@ const Login = () => {
   );
 };
 
-const box = {};
-export default Login;
+
+export default Register;
