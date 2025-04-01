@@ -24,8 +24,6 @@ const Login = () => {
       const {data} = await axios.post('http://localhost:9000/admin/login',{email,password});
       if(data?.err){
         toast.error(data?.err);
-
-      
       }
 
       if(data?.token){
