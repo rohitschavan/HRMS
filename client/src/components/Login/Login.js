@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Logo from '../../assets/logo.svg'
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(false);
@@ -43,7 +44,7 @@ const Login = () => {
           <Box
             sx={{
               height: "100vh",
-              backgroundImage: `url(${loginbg})`,
+              backgroundColor:'#fcf4ed' ,
               backgroundPosition: "50% 50%",
             }}
           >
@@ -68,27 +69,23 @@ const Login = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  gap:'20px'
                 }}
               >
-                <Typography
-                  className="poppins-medium"
-                  sx={{
-                    fontStyle: "normal",
-                    fontWeight: 700,
-                    fontSize: { lg: "40px", sm: "20px" },
-                    lineHeight: "60px",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  WorkGlow HRMS
-                </Typography>
+               <Box sx={{
+                width:'200px'
+               }} src={Logo} component='img'>
+
+               </Box>
                 <Typography
                   className="poppins-thin"
                   sx={{
                     fontWeight: 500,
-                    fontSize: "18px",
+                    fontSize: "14px",
                     lineHeight: "27px",
-                    color: "#FFFFFF",
+                    color: "#201f1f",
+                    position:'relative',
+                    top:'10px'
                   }}
                 >
                   Streamline Your HR Processes

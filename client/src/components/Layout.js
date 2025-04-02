@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import { Grid, TextField } from '@mui/material';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/logo.svg';
 import Call from '../assets/Call.png';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
@@ -233,13 +233,11 @@ export default function Layout({ children }) {
 
 
                         <Box sx={{
-                            width: '160px',
+                            width: '140px',
 
                         }} component='img' src={Logo}></Box>
                     </Box>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
+                    
                 </DrawerHeader>
                 <Divider />
                 <List>
