@@ -1,6 +1,6 @@
 import { Authmodel } from "../models/AuthModel.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
 
 export const registerAdmin = async(req,res)=>{
@@ -59,4 +59,6 @@ export const adminLogin = async(req,res)=>{
         console.log(err);
     }
 }
+
+
 
