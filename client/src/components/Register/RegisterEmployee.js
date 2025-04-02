@@ -45,7 +45,9 @@ const RegisterEmployee = () => {
         <>
             <Grid container spacing={2}>
                 </Grid>
-                <Grid size={{ lg: 12, sm: 12, md: 12, xs: 12 }}>
+                <Grid sx={{
+                    marginTop:'-100px'
+                }} size={{ lg: 12, sm: 12, md: 12, xs: 12 }}>
 
                     <Box
                         sx={{
@@ -178,25 +180,10 @@ const RegisterEmployee = () => {
                                     </Typography>
 
                                 </Button>
-                                <br/>
-                                  <Link to='/hr/register'>
-                                                Register a New HR
-                                            </Link>
-                                </form>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        position: "relative",
-                                        top: "30px",
-                                        gap: "0px",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                    }}
-                                >
+                           
                                 
-                                   
-                                </Box>
+                                </form>
+                         
                             </Box>
                         </motion.div>
                     </Box>

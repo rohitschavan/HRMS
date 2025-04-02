@@ -8,7 +8,11 @@ import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import RegisterHR from './components/Register/RegisterHR';
 import RegisterEmployee from './components/Register/RegisterEmployee';
+import Layout from './components/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
+import ManageEmp from './components/Manage/MangageEmp';
+import ManageHR from './components/Manage/ManageHR';
+
 
 function App() {
   return (
@@ -16,15 +20,20 @@ function App() {
       <Toaster />
 
       <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Layout />}>
+        <Route path="/hr/register" element={<RegisterHR />} />
+        <Route path='/admin/dashboard' element={<Dashboard/>}></Route>
+        <Route path="/employee/register" element={<RegisterEmployee />} />
+        <Route path="/manage/employee" element={<ManageEmp />} />
+        <Route path="/manage/hr" element={<ManageHR />} />
+        </Route>
 
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/hr/register" element={<RegisterHR />} />
-            <Route path="/employee/register" element={<RegisterEmployee />} />
-      <Route path="/dashboard/*" element={<Dashboard />} />
-          </Routes>
+
      
+      </Routes>
+
     </Router>
   );
 }
