@@ -569,8 +569,6 @@ export default function Layout({ children }) {
                 <DrawerHeader />
                 <Grid container>
                     <Grid size={{ lg: 12 }}>
-                        
-               
                         <Outlet />
                       
                     </Grid>

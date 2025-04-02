@@ -23,15 +23,15 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Layout />}>
-        <Route path="/hr/register" element={<RegisterHR />} />
-        <Route path='/admin/dashboard' element={<Dashboard/>}></Route>
-        <Route path="/employee/register" element={<RegisterEmployee />} />
-        <Route path="/manage/employee" element={<ManageEmp />} />
-        <Route path="/manage/hr" element={<ManageHR />} />
+          <Route path="/hr/register" element={<RegisterHR />} />
+          <Route path='/admin/dashboard' element={<Dashboard />}></Route>
+          <Route path="/employee/register" element={<RegisterEmployee />} />
+          <Route path="/manage/employee" element={<ManageEmp />} />
+          <Route path="/manage/hr" element={<ManageHR />} />
         </Route>
 
 
-     
+
       </Routes>
 
     </Router>
