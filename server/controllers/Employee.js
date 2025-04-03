@@ -62,3 +62,66 @@ export const loginEmployee = async(req,res)=>{
         console.log(err)
     }
 }
+
+
+export const getAllEmployees = async(req,res)=>{
+    try{
+        
+        const allEmp = await EmployeeDB.find({});
+
+        res.status(200).json({ success: true, data: allEmp });
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+export const deleteEmployee = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ err: "Employee ID is required!" });
+        }
+
+        const deletedEmp = await EmployeeDB.findByIdAndDelete(id);
+
+        if (!deletedEmp) {
+            return res.status(404).json({ err: "No Matching Employee Found!" });
+        }
+
+        res.json({ ok: true, deletedEmp });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: "Internal Server Error" });
+    }
+};
+
+
+export const updateEmployee = async (req, res) => {
+    try {
+        const { _id, email, status, mobile, role } = req.body;
+
+        if (!_id) {
+            return res.status(400).json({ err: "Employee ID is required!" });
+        }
+
+
+        const updateEmp = await EmployeeDB.findByIdAndUpdate(
+            _id, 
+            { email,   status: status === 'Active', mobile, role },
+            { new: true }
+        );
+
+        if (!updateEmp) {
+            return res.status(404).json({ err: "No Employee Found!" });
+        }
+
+        res.json({ ok: true, updateEmp });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: "Internal Server Error" });
+    }
+};

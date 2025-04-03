@@ -58,3 +58,64 @@ export const HRLogin = async(req,res)=>{
         console.log(err);
     }
 }
+
+
+export const getAllHR = async(req,res)=>{
+    try{
+        const allHr = await HRDB.find({});
+        res.json({success:true,data:allHr});
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+export const deleteHR = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ err: "HR ID is required!" });
+        }
+
+        const deletedHr = await HRDB.findByIdAndDelete(id);
+
+        if (!deletedHr) {
+            return res.status(404).json({ err: "No Matching HR Found!" });
+        }
+
+        res.json({ ok: true, deletedHr });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: "Internal Server Error" });
+    }
+};
+
+
+export const updateHR = async (req, res) => {
+    try {
+        const {_id, name,email,mobile,role,status,} = req.body;
+
+        if (!_id) {
+            return res.status(400).json({ err: "HR ID is required!" });
+        }
+
+
+        const updateEmp = await HRDB.findByIdAndUpdate(
+            _id, 
+            { email,   status: status === 'Active', mobile, role,name },
+            { new: true }
+        );
+
+        if (!updateEmp) {
+            return res.status(404).json({ err: "No HR Found!" });
+        }
+
+        res.json({ ok: true, updateEmp });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: "Internal Server Error" });
+    }
+};

@@ -12,19 +12,19 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import axios from "axios";
-const RegisterHR = () => {
+const UpdateEmployee = () => {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('Admin');
     const [status, setStatus] = useState('Admin');
-    const[mobile,setMobile] =useState('')
+    const[mobile,setMobile] = useState('')
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:9000/hr/register', {
+            const { data } = await axios.put('http://localhost:9000/employee/', {
                 name, email, password, role, status,mobile
             });
             if (data?.err) {
@@ -98,7 +98,7 @@ const RegisterHR = () => {
                                         color: "#333333",
                                     }}
                                 >
-                                    For HR
+                                    For Employee
                                 </Typography>
                             </Box>
 
@@ -159,15 +159,15 @@ const RegisterHR = () => {
                                     }}
                                     placeholder="Status"
                                 ></TextField>
-                                          <TextField onChange={(e)=>setMobile(e.target.value)}
-                                                                    sx={{
-                                                                        background: "#FFFFFF",
-                                
-                                                                        width: "307px",
-                                                                        height: "60px",
-                                                                    }}
-                                                                    placeholder="Mobile"
-                                                                ></TextField>
+                                <TextField onChange={(e)=>setMobile(e.target.value)}
+                                    sx={{
+                                        background: "#FFFFFF",
+
+                                        width: "307px",
+                                        height: "60px",
+                                    }}
+                                    placeholder="Mobile"
+                                ></TextField>
 
                                 <Button type="submit"
                                     sx={{
@@ -190,10 +190,10 @@ const RegisterHR = () => {
                                     </Typography>
 
                                 </Button>
-                            
-                                    
+                           
+                                
                                 </form>
-                            
+                         
                             </Box>
                         </motion.div>
                     </Box>
@@ -205,4 +205,4 @@ const RegisterHR = () => {
 };
 
 
-export default RegisterHR;
+export default UpdateEmployee;
