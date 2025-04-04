@@ -6,8 +6,8 @@ const jobsRouter = express.Router();
 
 jobsRouter.get('/jobs/',getAllJobs)
 jobsRouter.post('/jobs/new',addNewJob)
-jobsRouter.put('/jobs',updateJob)
-jobsRouter.delete('/jobs',deleteJob)
+jobsRouter.put('/jobs/update',updateJob)
+jobsRouter.delete('/jobs/delete',deleteJob)
 
 
 export default jobsRouter;

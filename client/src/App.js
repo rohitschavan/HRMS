@@ -12,7 +12,8 @@ import Layout from './components/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
 import ManageEmp from './components/Manage/MangageEmp';
 import ManageHR from './components/Manage/ManageHR';
-
+import ManageJob from './components/Jobs/ManageJob';
+import CreateNewJob from './components/Jobs/CreateNewJob';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
           <Route path="/employee/register" element={<RegisterEmployee />} />
           <Route path="/manage/employee" element={<ManageEmp />} />
           <Route path="/manage/hr" element={<ManageHR />} />
+          <Route path="/manage/jobs" element={<ManageJob />} />
+          <Route path="/jobs/create" element={<CreateNewJob />} />
         </Route>
 
 
