@@ -213,7 +213,12 @@ export default function Layout({ children }) {
                                 <HelpIcon sx={{
                                     color: '#C4C4C4'
                                 }} />
-                           <AvatarMenu admin={admin}/>
+                    <AvatarMenu sx={{ bgcolor: "rgb(251, 145, 0)", width: 32, height: 32 }}>
+  <Typography sx={{ fontSize: "0.7rem", fontFamily: "Poppins", color: "black" }}>
+    {admin?.name ? admin.name.charAt(0).toUpperCase() : "A"}
+  </Typography>
+</AvatarMenu>
+
                             </Box>
 
                         </Box>
