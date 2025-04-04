@@ -164,7 +164,7 @@ const {admin} = useAdmin();
                 />
               
                  <FormControl sx={inputStyle}>
-                  <InputLabel id="role-select-label">Select Status</InputLabel>
+                  <InputLabel id="role-select-label">Select Job Type</InputLabel>
                   <Select
                     labelId="role-select-label"
                     value={jobType}
@@ -215,7 +215,7 @@ const {admin} = useAdmin();
                   <InputLabel id="role-select-label">Select Status</InputLabel>
                   <Select
                     labelId="role-select-label"
-                    value={salary}
+                    value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     label="Select Status"
                    >
