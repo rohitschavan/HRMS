@@ -517,7 +517,7 @@ export default function Layout({ children }) {
                                     </Box>
                                 </NavLink>
                                 <NavLink
-                                    to='/manage/candidates'
+                                    to='/jobs/create'
                                     style={({ isActive }) => ({
                                         background: isActive ? "#377DFF" : "white",
                                         textDecoration: 'none',
@@ -547,7 +547,7 @@ export default function Layout({ children }) {
                                                 left:'10px'
                                             }}
                                         />
-                                       Candidates
+                                       Create A Job
                                     </Box>
                                 </NavLink>
                             </Box>

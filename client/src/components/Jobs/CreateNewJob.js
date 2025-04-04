@@ -77,9 +77,10 @@ const CreateNewJob = () => {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
+            width:'100%'
           }}
         >
-          <motion.div
+          <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, x: -50 }}
@@ -120,10 +121,12 @@ const CreateNewJob = () => {
             </Box>
             <br />
 
-            <Grid
-              sx={{ display: "flex", flexDirection: "row", gap: "20px" }}
+            <Grid sx={{
+              display:'flex',justifyContent:'center',flexDirection:'row',gap:'20px'
+            }}
               size={{ lg: 12, sm: 12, md: 12, xs: 12 }}
             >
+         
               {/* Left Side Inputs */}
               <Box
                 sx={{
@@ -131,6 +134,7 @@ const CreateNewJob = () => {
                   flexDirection: "column",
                   position: "relative",
                   top: "-40px",
+           
                 }}
               >
                 <TextField
@@ -178,6 +182,7 @@ const CreateNewJob = () => {
                   flexDirection: "column",
                   position: "relative",
                   top: "-40px",
+           
                 }}
               >
                 <FormControl sx={inputStyle}>
