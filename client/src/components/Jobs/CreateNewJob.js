@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -13,19 +13,29 @@ import {
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import axios from "axios";
-
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useAdmin } from "../../context/AdminContext";
 const CreateNewJob = () => {
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [jobType, setJobType] = useState("");
-  const [department, setDepartment] = useState("Admin");
-  const [location, setLocation] = useState("Admin");
+  const [department, setDepartment] = useState("");
+  const [location, setLocation] = useState("");
   const [experience, setExperience] = useState("");
   const [salary, setSalary] = useState("");
   const [opening, setOpening] = useState("");
   const [postedBy, setPostedBy] = useState("");
   const [status, setStatus] = useState("");
   const [deadline, setDeadline] = useState("");
+  //hooks
+
+
+    
+const {admin} = useAdmin();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +49,7 @@ const CreateNewJob = () => {
         experience,
         salary,
         opening,
-        postedBy,
+        postedBy:admin?._id,
         status,
         deadline,
       });
@@ -77,10 +87,10 @@ const CreateNewJob = () => {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
-            width:'100%'
+            width: '100%'
           }}
         >
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, x: -50 }}
@@ -122,11 +132,11 @@ const CreateNewJob = () => {
             <br />
 
             <Grid sx={{
-              display:'flex',justifyContent:'center',flexDirection:'row',gap:'20px'
+              display: 'flex', justifyContent: 'center', flexDirection: 'row', gap: '20px'
             }}
               size={{ lg: 12, sm: 12, md: 12, xs: 12 }}
             >
-         
+
               {/* Left Side Inputs */}
               <Box
                 sx={{
@@ -134,7 +144,7 @@ const CreateNewJob = () => {
                   flexDirection: "column",
                   position: "relative",
                   top: "-40px",
-           
+
                 }}
               >
                 <TextField
@@ -149,18 +159,31 @@ const CreateNewJob = () => {
                   placeholder="Enter Description"
                   sx={inputStyle}
                 />
-                <TextField
-                  value={jobType}
-                  onChange={(e) => setJobType(e.target.value)}
-                  placeholder="Enter Job Type"
-                  sx={inputStyle}
-                />
+              
+                 <FormControl sx={inputStyle}>
+                  <InputLabel id="role-select-label">Select Status</InputLabel>
+                  <Select
+                    labelId="role-select-label"
+                    value={jobType}
+                    onChange={(e) => setJobType(e.target.value)}
+                    label="Select Status"
+                   >
+                    <MenuItem value="Full-time">Full-Time</MenuItem>
+                    <MenuItem value="Part-time">Part-time</MenuItem>
+                    <MenuItem value="Contract">Contract</MenuItem>
+                    <MenuItem value="Internship">Internship</MenuItem>
+                    <MenuItem value="Remote">Remote</MenuItem>
+                    <MenuItem value="On-site">On-site</MenuItem>
+
+                  </Select>
+                </FormControl>
                 <TextField
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
                   placeholder="Enter Department"
                   sx={inputStyle}
                 />
+            
                 <TextField
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
@@ -182,7 +205,7 @@ const CreateNewJob = () => {
                   flexDirection: "column",
                   position: "relative",
                   top: "-40px",
-           
+
                 }}
               >
                 <FormControl sx={inputStyle}>
@@ -190,12 +213,12 @@ const CreateNewJob = () => {
                   <Select
                     labelId="role-select-label"
                     value={salary}
-                    onChange={(e) => setSalary(e.target.value)}
+                    onChange={(e) => setStatus(e.target.value)}
                     label="Select Status"
-                  >
-                    <MenuItem value="Dev">Open</MenuItem>
-                    <MenuItem value="Manager">Closed</MenuItem>
-                    
+                   >
+                    <MenuItem value="Open">Open</MenuItem>
+                    <MenuItem value="Closed">Closed</MenuItem>
+
                   </Select>
                 </FormControl>
                 <TextField
@@ -204,24 +227,32 @@ const CreateNewJob = () => {
                   placeholder="No. of Openings"
                   sx={inputStyle}
                 />
-                <TextField
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  placeholder="Status"
+              <TextField
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                  placeholder="Enter Salary"
                   sx={inputStyle}
                 />
-                <TextField
-                  value={deadline}
-                  onChange={(e) => setDeadline(e.target.value)}
-                  placeholder="Deadline"
-                  sx={inputStyle}
-                />
-                <TextField
-                  value={postedBy}
-                  onChange={(e) => setPostedBy(e.target.value)}
-                  placeholder="Posted By"
-                  sx={inputStyle}
-                />
+
+         
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Deadline"
+                    value={deadline}
+                    onChange={(newValue) => setDeadline(newValue)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{
+                          background: "#FFFFFF",
+                          width: "307px",
+                          height: "60px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Box>
             </Grid>
 
@@ -246,7 +277,7 @@ const CreateNewJob = () => {
                   sx={{
                     color: "white",
                     textTransform: "none",
-                    
+
                     fontSize: { lg: "14px", sm: "10px" },
                   }}
                 >

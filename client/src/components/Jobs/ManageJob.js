@@ -40,7 +40,7 @@ export default function ManageJob() {
         console.log(data);
       }
     } catch (error) {
-      toast.error("Failed to fetch employees.");
+      toast.error("Failed to fetch job.");
     }
   };
 
@@ -53,7 +53,7 @@ export default function ManageJob() {
       toast.success(`Deleted ${row.title}`)
       getAllEmp();
     } catch {
-      toast.error("Failed to delete employee.");
+      toast.error("Failed to delete job.");
     }
   };
 
@@ -65,12 +65,12 @@ export default function ManageJob() {
   const handleUpdateSubmit = async () => {
     try {
       await axios.put("http://localhost:9000/jobs/update", selectedJob);
-      toast.success("Employee updated successfully!");
+      toast.success("Job updated successfully!");
       getAllEmp();
       setOpen(false);
    
     } catch {
-      toast.error("Failed to update employee.");
+      toast.error("Failed to update Job.");
     }
   };
 
@@ -123,10 +123,10 @@ export default function ManageJob() {
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={modalStyle}>
           <h2>Edit Job</h2>
-          <TextField label="First Name" name="title" value={selectedJob?.title || ''} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Email" name="description" value={selectedJob?.description || ''} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Mobile" name="department" value={selectedJob?.department || ''} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Role" name="location" value={selectedJob?.location || ''} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Title" name="title" value={selectedJob?.title || ''} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Description" name="description" value={selectedJob?.description || ''} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Department" name="department" value={selectedJob?.department || ''} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Location" name="location" value={selectedJob?.location || ''} onChange={handleChange} fullWidth margin="normal" />
           <TextField label="Job Type" name="jobType" value={selectedJob?.jobType || ''} onChange={handleChange} fullWidth margin="normal" />
           <Button variant="contained" color="primary" onClick={handleUpdateSubmit} sx={{ mt: 2 }}>Save</Button>
         </Box>

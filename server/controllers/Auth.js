@@ -62,3 +62,25 @@ export const adminLogin = async(req,res)=>{
 
 
 
+
+export const getCurrentAdmin = async (req, res) => {
+    try {
+      const { userId } = req;
+  
+      if (!userId) {
+        return res.json({ err: 'Please provide a valid ID' });
+      }
+  
+      const loggedIn = await Authmodel.findById(userId).select('-password');
+  
+      if (!loggedIn) {
+        return res.json({ err: 'No admin found!' });
+      }
+  
+      res.json({ data: loggedIn });
+    } catch (err) {
+      console.log(err);
+      return res.json({ err: 'Server error' });
+    }
+  };
+  

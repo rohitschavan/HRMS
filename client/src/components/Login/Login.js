@@ -15,28 +15,37 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Logo from '../../assets/logo.svg'
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(false);
 
-  const navigate = useNavigate();
-  const handleSubmit = async(e)=>{
-    e.preventDefault();
-    try{
-      const {data} = await axios.post('http://localhost:9000/admin/login',{email,password});
-      if(data?.err){
-        toast.error(data?.err);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(''); // fix: should be string, not boolean
+    const navigate = useNavigate();
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const { data } = await axios.post('http://localhost:9000/admin/login', {
+          email,
+          password,
+        });
+  
+        if (data?.err) {
+          toast.error(data.err);
+          return;
+        }
+  
+        if (data?.token) {
+          localStorage.setItem('token', data.token);
+          toast.success('Login Success');
+          navigate('admin/dashboard');
+        } else {
+          toast.error('Something went wrong');
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error('Server error. Try again later.');
       }
-
-      if(data?.token){
-        toast.success('Login Success');
-        navigate('/dashboard')
-      }
-
-
-    }catch(err){
-      console.log(err);
-    }
-  }
+    };
+  
   return (
     <>
       <Grid container spacing={2}>

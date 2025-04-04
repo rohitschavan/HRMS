@@ -1,8 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-
-import { Route } from 'react-router-dom';
 
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
@@ -14,30 +12,40 @@ import ManageEmp from './components/Manage/MangageEmp';
 import ManageHR from './components/Manage/ManageHR';
 import ManageJob from './components/Jobs/ManageJob';
 import CreateNewJob from './components/Jobs/CreateNewJob';
-
+import { AdminProvider } from './context/AdminContext';
+import PrivateRoute from './components/PrivateRoute';
 function App() {
   return (
-    <Router>
-      <Toaster />
+    <AdminProvider>
+      <Router>
+        <Toaster />
 
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Layout />}>
-          <Route path="/hr/register" element={<RegisterHR />} />
-          <Route path='/admin/dashboard' element={<Dashboard />}></Route>
-          <Route path="/employee/register" element={<RegisterEmployee />} />
-          <Route path="/manage/employee" element={<ManageEmp />} />
-          <Route path="/manage/hr" element={<ManageHR />} />
-          <Route path="/manage/jobs" element={<ManageJob />} />
-          <Route path="/jobs/create" element={<CreateNewJob />} />
-        </Route>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-
-
-      </Routes>
-
-    </Router>
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Layout />
+              </PrivateRoute>
+            }
+          >
+            <Route path="/hr/register" element={<RegisterHR />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/employee/register" element={<RegisterEmployee />} />
+            <Route path="/manage/employee" element={<ManageEmp />} />
+            <Route path="/manage/hr" element={<ManageHR />} />
+            <Route path="/manage/jobs" element={<ManageJob />} />
+            <Route path="/jobs/create" element={<CreateNewJob />} />
+          </Route>
+        
+        </Routes>
+      </Router>
+    </AdminProvider>
   );
 }
 
