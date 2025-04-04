@@ -213,14 +213,14 @@ const Login = () => {
                   width: "307px",
                   height: "57px",
 
-                  background: "#0575E6",
-                  borderRadius: "8px",
+                  backgroundColor:"rgb(251, 145, 0)",
+                  borderRadius: "3px",
                   top: "14px",
                 }}
               >
                 <Typography
                   sx={{
-                    color: "white",
+                    color: "black",
                     textTransform: "none",
                     fontSize: { lg: "14px", sm: "10px" },
                   }}

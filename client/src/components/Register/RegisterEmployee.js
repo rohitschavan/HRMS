@@ -186,15 +186,17 @@ const RegisterEmployee = () => {
                                         width: "307px",
                                         height: "57px",
 
-                                        background: "#0575E6",
-                                        borderRadius: "8px",
+                            
+                                        borderRadius: "3px",
                                         top: "14px",
+                                        backgroundColor:"rgb(251, 145, 0)",
                                     }}
                                 >
                                     <Typography
                                         sx={{
-                                            color: "white",
+                                            color: "black",
                                             textTransform: "none",
+                                            fontWeight:'bold',
                                             fontSize: { lg: "14px", sm: "10px" },
                                         }}
                                     >

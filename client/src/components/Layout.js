@@ -25,7 +25,7 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import { useState } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 const drawerWidth = 240;
-
+// rgb(251 145 0)
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -46,6 +46,8 @@ const closedMixin = (theme) => ({
         width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
+
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -274,13 +276,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                     to='/hr/register'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                                  borderRadius:'3px'
                                     })}
                                 >
                                     <Box
@@ -297,7 +300,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <HowToRegIcon
                                             style={{
-                                                color: '#B2B2B2',
+                                                color: 'black',
                                                 position:'relative',
                                                 left:'10px'
                                             }}
@@ -308,13 +311,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                     to='/employee/register'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                                  borderRadius:'3px'
                                     })}
                                 >
                                     <Box
@@ -331,7 +335,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <BadgeIcon
                                             style={{
-                                                color: '#B2B2B2',
+                                                color: 'black',
                                                      position:'relative',
                                                 left:'10px'
                                             }}
@@ -379,13 +383,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                     to='/manage/hr'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                        borderRadius:'3px'
                                     })}
                                 >
                                     <Box
@@ -402,7 +407,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <HowToRegIcon
                                             style={{
-                                                color: '#B2B2B2',
+                                                color: 'black',
                                                 position:'relative',
                                                 left:'10px'
                                             }}
@@ -413,13 +418,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                     to='/manage/employee'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                                  borderRadius:'3px'
                                     })}
                                  >
                                     <Box
@@ -436,7 +442,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <ManageAccountsIcon
                                             style={{
-                                                color: '#B2B2B2',
+                                                color: 'black',
                                                      position:'relative',
                                                 left:'10px'
                                             }}
@@ -484,13 +490,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                   to='/manage/jobs'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                                  borderRadius:'3px'
                                     })}
                                 >
                                     <Box
@@ -507,7 +514,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <HowToRegIcon
                                             style={{
-                                                color: '#B2B2B2',
+                                                color: 'black',
 
                                                 position:'relative',
                                                 left:'10px'
@@ -519,13 +526,14 @@ export default function Layout({ children }) {
                                 <NavLink
                                     to='/jobs/create'
                                     style={({ isActive }) => ({
-                                        background: isActive ? "#377DFF" : "white",
+                                        background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
-                                        color: isActive ? 'white' : '#B2B2B2',
-                                        fontWeight: 'bold',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight:  isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
-                                        letterSpacing: "0.03em"
+                                        letterSpacing: "0.03em",
+                                                  borderRadius:'3px'
                                     })}
                                  >
                                     <Box
@@ -542,7 +550,7 @@ export default function Layout({ children }) {
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <BadgeIcon
                                             style={{
-                                                              color: '#B2B2B2',
+                                                              color: 'black',
                                                      position:'relative',
                                                 left:'10px'
                                             }}
