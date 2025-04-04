@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 const modalStyle = {
   position: 'absolute',
@@ -107,6 +108,7 @@ export default function ManageEmp() {
 
   return (
     <Paper sx={{ height: 450, width: '100%', p: 2 }}>
+      
       <DataGrid rows={emp.data?.map((item, index) => ({
         id: index + 1,
         _id: item._id,

@@ -101,7 +101,7 @@ const RegisterHR = () => {
                                     For HR
                                 </Typography>
                             </Box>
-
+                            </motion.div>
                             <Box
                                 sx={{
                                     display: "flex",
@@ -196,7 +196,7 @@ const RegisterHR = () => {
                                 </form>
                             
                             </Box>
-                        </motion.div>
+    
                     </Box>
 
                 </Grid>

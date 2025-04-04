@@ -142,7 +142,7 @@ const Register = () => {
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.5 }}
 
-                        >
+                         >
                             <Box
                                 sx={{
                                     display: "flex",
@@ -176,6 +176,7 @@ const Register = () => {
                                     For Admin
                                 </Typography>
                             </Box>
+                            </motion.div>
 
                             <Box
                                 sx={{
@@ -272,7 +273,7 @@ const Register = () => {
                                     <Link to='/'> Back to Login</Link>
                                 </Box>
                             </Box>
-                        </motion.div>
+                   
                     </Box>
 
                 </Grid>

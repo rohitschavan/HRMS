@@ -10,12 +10,10 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import { Grid, TextField } from '@mui/material';
 import Logo from '../assets/logo.svg';
-import Call from '../assets/Call.png';
+
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import userIcon from '../assets/usericon.png';
@@ -24,6 +22,8 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { useState } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { useAdmin } from '../context/AdminContext';
+import AvatarMenu from './AvatarMenu';
 const drawerWidth = 240;
 // rgb(251 145 0)
 const openedMixin = (theme) => ({
@@ -107,6 +107,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Layout({ children }) {
+    const {admin} = useAdmin()
     // const isActive = useMatch('/employee/register');
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -149,7 +150,7 @@ export default function Layout({ children }) {
                         justifyContent: 'space-between'
                     }}>
 
-
+                 
                         <Typography sx={{
                             fontStyle: "normal",
                             fontWeight: 600,
@@ -160,7 +161,7 @@ export default function Layout({ children }) {
                             position: 'relative',
                             left: '20px'
                         }} variant="h6" noWrap component="div">
-                            Dashboard
+                           Dashboard
                         </Typography>
 
                         <Box sx={{
@@ -196,7 +197,7 @@ export default function Layout({ children }) {
 
                                     }}
                                 />
-                                <Box component='img' src={Call}></Box>
+
                             </Box>
                             <Box sx={{
                                 display: 'flex',
@@ -212,10 +213,7 @@ export default function Layout({ children }) {
                                 <HelpIcon sx={{
                                     color: '#C4C4C4'
                                 }} />
-                                <Box sx={{
-                                    width: '36px',
-                                    height: '36px'
-                                }} component='img' src={userIcon}></Box>
+                           <AvatarMenu admin={admin}/>
                             </Box>
 
                         </Box>
@@ -239,7 +237,7 @@ export default function Layout({ children }) {
 
                         }} component='img' src={Logo}></Box>
                     </Box>
-                    
+
                 </DrawerHeader>
                 <Divider />
                 <List>
@@ -252,7 +250,7 @@ export default function Layout({ children }) {
                                 gap: '30px',
                                 width: '100%',
                             }
-                         }>
+                        }>
                             <Typography sx={{
                                 fontFamily: "'Poppins'",
                                 fontStyle: "normal",
@@ -271,7 +269,7 @@ export default function Layout({ children }) {
                                 justifyContent: 'center',
                                 flexDirection: 'column',
                                 width: '100%',
-                                gap:'10px'
+                                gap: '10px'
                             }}>
                                 <NavLink
                                     to='/hr/register'
@@ -279,11 +277,12 @@ export default function Layout({ children }) {
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                                  borderRadius:'3px'
+                                        borderRadius: '3px',
+                                        transition: '0.2s'
                                     })}
                                 >
                                     <Box
@@ -294,15 +293,15 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <HowToRegIcon
                                             style={{
                                                 color: 'black',
-                                                position:'relative',
-                                                left:'10px'
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
                                         HR Register
@@ -314,11 +313,12 @@ export default function Layout({ children }) {
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                                  borderRadius:'3px'
+                                        borderRadius: '3px',
+                                        transition: '0.2s'
                                     })}
                                 >
                                     <Box
@@ -329,15 +329,15 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <BadgeIcon
                                             style={{
                                                 color: 'black',
-                                                     position:'relative',
-                                                left:'10px'
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
                                         Employee Register
@@ -359,7 +359,7 @@ export default function Layout({ children }) {
                                 gap: '30px',
                                 width: '100%',
                             }
-                         }>
+                        }>
                             <Typography sx={{
                                 fontFamily: "'Poppins'",
                                 fontStyle: "normal",
@@ -378,7 +378,7 @@ export default function Layout({ children }) {
                                 justifyContent: 'center',
                                 flexDirection: 'column',
                                 width: '100%',
-                                gap:'10px'
+                                gap: '10px'
                             }}>
                                 <NavLink
                                     to='/manage/hr'
@@ -386,11 +386,12 @@ export default function Layout({ children }) {
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                        borderRadius:'3px'
+                                        borderRadius: '3px',
+                                        transition:'0.2s'
                                     })}
                                 >
                                     <Box
@@ -401,15 +402,15 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <HowToRegIcon
                                             style={{
                                                 color: 'black',
-                                                position:'relative',
-                                                left:'10px'
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
                                         Manage HR
@@ -421,13 +422,14 @@ export default function Layout({ children }) {
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                                  borderRadius:'3px'
+                                        borderRadius: '3px',
+                                        transition:'0.2s'
                                     })}
-                                 >
+                                >
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -436,15 +438,15 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <ManageAccountsIcon
                                             style={{
                                                 color: 'black',
-                                                     position:'relative',
-                                                left:'10px'
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
                                         Manage Employees
@@ -466,7 +468,7 @@ export default function Layout({ children }) {
                                 gap: '30px',
                                 width: '100%',
                             }
-                         }>
+                        }>
                             <Typography sx={{
                                 fontFamily: "'Poppins'",
                                 fontStyle: "normal",
@@ -485,19 +487,20 @@ export default function Layout({ children }) {
                                 justifyContent: 'center',
                                 flexDirection: 'column',
                                 width: '100%',
-                                gap:'10px'
+                                gap: '10px'
                             }}>
                                 <NavLink
-                                  to='/manage/jobs'
+                                    to='/manage/jobs'
                                     style={({ isActive }) => ({
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                                  borderRadius:'3px'
+                                        borderRadius: '3px',
+                                       transition:'0.2s'
                                     })}
                                 >
                                     <Box
@@ -508,7 +511,7 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
@@ -516,8 +519,8 @@ export default function Layout({ children }) {
                                             style={{
                                                 color: 'black',
 
-                                                position:'relative',
-                                                left:'10px'
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
                                         All Jobs
@@ -529,13 +532,14 @@ export default function Layout({ children }) {
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
                                         color: isActive ? '#241e1e' : '#6a5656',
-                                        fontWeight:  isActive ? 'bold' : 'normal',
+                                        fontWeight: isActive ? 'bold' : 'normal',
                                         fontSize: "14px",
                                         lineHeight: "21px",
                                         letterSpacing: "0.03em",
-                                                  borderRadius:'3px'
+                                        borderRadius: '3px',
+                                        transition:'0.2s'
                                     })}
-                                 >
+                                >
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -544,18 +548,18 @@ export default function Layout({ children }) {
                                             gap: '14px',
                                             alignItems: 'center',
                                             height: "45px",
-                                       
+
                                         }}
                                     >
                                         {/* ✅ Dynamically change icon color based on active state */}
                                         <BadgeIcon
                                             style={{
-                                                              color: 'black',
-                                                     position:'relative',
-                                                left:'10px'
+                                                color: 'black',
+                                                position: 'relative',
+                                                left: '10px'
                                             }}
                                         />
-                                       Create A Job
+                                        Create A Job
                                     </Box>
                                 </NavLink>
                             </Box>
@@ -565,18 +569,18 @@ export default function Layout({ children }) {
 
 
                     </ListItem>
-             
+
 
                 </List>
-          
-                
+
+
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
                 <Grid container>
                     <Grid size={{ lg: 12 }}>
                         <Outlet />
-                      
+
                     </Grid>
                 </Grid>
             </Box>

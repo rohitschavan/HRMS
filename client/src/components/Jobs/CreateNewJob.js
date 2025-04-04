@@ -87,7 +87,8 @@ const {admin} = useAdmin();
             display: "flex",
             flexDirection: "column",
             gap: "10px",
-            width: '100%'
+            width: '100%',
+            marginTop:'-20px'
           }}
         >
           <motion.div
@@ -129,10 +130,12 @@ const {admin} = useAdmin();
                 New Job
               </Typography>
             </Box>
+            </motion.div>
             <br />
 
             <Grid sx={{
-              display: 'flex', justifyContent: 'center', flexDirection: 'row', gap: '20px'
+              display: 'flex', justifyContent: 'center', flexDirection: 'row', gap: '20px',
+              marginTop:'-20px'
             }}
               size={{ lg: 12, sm: 12, md: 12, xs: 12 }}
             >
@@ -286,7 +289,7 @@ const {admin} = useAdmin();
                 </Typography>
               </Button>
             </Box>
-          </motion.div>
+  
         </form>
       </Grid>
     </>

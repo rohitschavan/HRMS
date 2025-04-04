@@ -105,6 +105,7 @@ const RegisterEmployee = () => {
                                 For Employee
                             </Typography>
                         </Box>
+                                            </motion.div>
 
                         <Box
                             sx={{
@@ -209,7 +210,7 @@ const RegisterEmployee = () => {
                             </form>
 
                         </Box>
-                    </motion.div>
+                 
                 </Box>
 
             </Grid>
