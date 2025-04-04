@@ -22,7 +22,7 @@ const RegisterEmployee = () => {
     const [role, setRole] = useState('Admin');
     const [status, setStatus] = useState('Admin');
     const [mobile, setMobile] = useState('')
-  
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,10 +48,11 @@ const RegisterEmployee = () => {
     return (
         <>
             <Grid container spacing={2}>
-            </Grid>
-            <Grid sx={{
-                marginTop: '-100px'
-            }} size={{ lg: 12, sm: 12, md: 12, xs: 12 }}>
+
+         
+             <Grid sx={{
+                marginTop: '-160px'
+             }} size={{ lg: 12, sm: 12, md: 12, xs: 12 }}>
 
                 <Box
                     sx={{
@@ -147,20 +148,20 @@ const RegisterEmployee = () => {
                                     placeholder="Password"
                                 ></TextField>
 
-<InputLabel id="role-select-label">Select Role</InputLabel>
-      <Select
-        labelId="role-select-label"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          Select Role
-        </MenuItem>
-        <MenuItem value="Dev">Dev</MenuItem>
-        <MenuItem value="Manager">Manager</MenuItem>
-        <MenuItem value="TeamLead">TeamLead</MenuItem>
-      </Select>
+                                <InputLabel id="role-select-label">Select Role</InputLabel>
+                                <Select
+                                    labelId="role-select-label"
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    displayEmpty
+                                >
+                                    <MenuItem value="" disabled>
+                                        Select Role
+                                    </MenuItem>
+                                    <MenuItem value="Dev">Dev</MenuItem>
+                                    <MenuItem value="Manager">Manager</MenuItem>
+                                    <MenuItem value="TeamLead">TeamLead</MenuItem>
+                                </Select>
                                 <TextField onChange={(e) => setStatus(e.target.value)}
                                     sx={{
                                         background: "#FFFFFF",
@@ -210,6 +211,7 @@ const RegisterEmployee = () => {
                 </Box>
 
             </Grid>
+               </Grid>
 
         </>
     );

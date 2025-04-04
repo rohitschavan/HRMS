@@ -4,8 +4,10 @@ import connectDB from '../db.js';
 import Authrouter from '../routes/AuthRoutes.js';
 import Hrrouter from '../routes/HRRoutes.js';
 import employeeRouter from '../routes/EmployeeRoutes.js';
+import jobsRouter from '../routes/JobRoutes.js';
 import cors from 'cors'
 const port = process.env.PORT;
+
 connectDB();
 
 const app =express();
@@ -14,6 +16,7 @@ app.use(express.json());
 app.use('/',Authrouter);
 app.use('/',Hrrouter);
 app.use('/',employeeRouter);
+app.use('/',jobsRouter)
 app.listen(port,(err)=>{
     if(err){
         console.log(err);

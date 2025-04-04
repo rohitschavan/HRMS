@@ -101,7 +101,7 @@ export const deleteEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
     try {
-        const { _id, email, status, mobile, role } = req.body;
+        const { _id, email, status, mobile, role,name } = req.body;
 
         if (!_id) {
             return res.status(400).json({ err: "Employee ID is required!" });
@@ -110,7 +110,7 @@ export const updateEmployee = async (req, res) => {
 
         const updateEmp = await EmployeeDB.findByIdAndUpdate(
             _id, 
-            { email,   status: status === 'Active', mobile, role },
+            { email, name,  status: status === 'Active', mobile, role },
             { new: true }
         );
 

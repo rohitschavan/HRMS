@@ -78,7 +78,7 @@ export default function ManageEmp() {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First Name', width: 130 },
+    { field: 'name', headerName: 'First Name', width: 130 },
     { field: 'email', headerName: 'Email', width: 160 },
     { field: 'mobile', headerName: 'Mobile', width: 120 },
     { field: 'role', headerName: 'Role', width: 120 },
@@ -110,7 +110,7 @@ export default function ManageEmp() {
       <DataGrid rows={emp.data?.map((item, index) => ({
         id: index + 1,
         _id: item._id,
-        firstName: item.name || "N/A",
+        name: item.name || "N/A",
         email: item.email || "N/A",
         mobile: item.mobile || "N/A",
         role: item.role || "N/A",
@@ -120,7 +120,7 @@ export default function ManageEmp() {
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={modalStyle}>
           <h2>Edit Employee</h2>
-          <TextField label="First Name" name="firstName" value={selectedEmp?.firstName || ''} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="First Name" name="name" value={selectedEmp?.name || ''} onChange={handleChange} fullWidth margin="normal" />
           <TextField label="Email" name="email" value={selectedEmp?.email || ''} onChange={handleChange} fullWidth margin="normal" />
           <TextField label="Mobile" name="mobile" value={selectedEmp?.mobile || ''} onChange={handleChange} fullWidth margin="normal" />
           <TextField label="Role" name="role" value={selectedEmp?.role || ''} onChange={handleChange} fullWidth margin="normal" />
