@@ -482,7 +482,7 @@ export default function Layout({ children }) {
                                 gap:'10px'
                             }}>
                                 <NavLink
-                                    to='/hr/manage'
+                                  to='/manage/jobs'
                                     style={({ isActive }) => ({
                                         background: isActive ? "#377DFF" : "white",
                                         textDecoration: 'none',
@@ -517,7 +517,7 @@ export default function Layout({ children }) {
                                     </Box>
                                 </NavLink>
                                 <NavLink
-                                    to='/employee/manage'
+                                    to='/manage/candidates'
                                     style={({ isActive }) => ({
                                         background: isActive ? "#377DFF" : "white",
                                         textDecoration: 'none',

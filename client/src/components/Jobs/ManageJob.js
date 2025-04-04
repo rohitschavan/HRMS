@@ -105,19 +105,7 @@ export default function ManageJob() {
         </Button>
       ),
     },
-    {
-      field: 'create',
-      headerName: 'Create',
-      width: 100,
-      renderCell: (params) => (
-        <Button variant="contained" color="success" size="small">
-          <Link style={{
-            textDecoration:'none',
-           color:'white',
-          }} to='/jobs/create'>Create</Link>
-        </Button>
-      ),
-    },
+   
   ];
 
   return (
