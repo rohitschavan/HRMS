@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   TextField,
+  InputAdornment, IconButton 
 } from "@mui/material";
 import loginbg from "../../assets/loginbg.png";
 import { Link } from "react-router-dom";
@@ -13,12 +14,15 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo from '../../assets/logo.svg'
 const Login = () => {
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); // fix: should be string, not boolean
+    const [password, setPassword] = useState(''); 
+    const [showPassword, setShowPassword] = useState(false);// fix: should be string, not boolean
     const navigate = useNavigate();
+  
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -199,7 +203,15 @@ const Login = () => {
                 }}
                 placeholder="Email Address"
               ></TextField>
-              <TextField onChange={(e)=>setPassword(e.target.value)}
+              <TextField InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    ),
+  }} type={showPassword ? 'password' : 'text'} onChange={(e)=>setPassword(e.target.value)}
                 sx={{
                   background: "#FFFFFF",
 
@@ -208,6 +220,8 @@ const Login = () => {
                 }}
                 placeholder="Password"
               ></TextField>
+             
+              
               <Button type="submit"
                 sx={{
                   width: "307px",

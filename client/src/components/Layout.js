@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListItem from '@mui/material/ListItem';
 import { Grid, TextField } from '@mui/material';
 import Logo from '../assets/logo.svg';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import userIcon from '../assets/usericon.png';
@@ -213,12 +213,7 @@ export default function Layout({ children }) {
                                 <HelpIcon sx={{
                                     color: '#C4C4C4'
                                 }} />
-                    <AvatarMenu sx={{ bgcolor: "rgb(251, 145, 0)", width: 32, height: 32 }}>
-  <Typography sx={{ fontSize: "0.7rem", fontFamily: "Poppins", color: "black" }}>
-    {admin?.name ? admin.name.charAt(0).toUpperCase() : "A"}
-  </Typography>
-</AvatarMenu>
-
+                           <AvatarMenu admin={admin}/>
                             </Box>
 
                         </Box>
@@ -277,6 +272,42 @@ export default function Layout({ children }) {
                                 gap: '10px'
                             }}>
                                 <NavLink
+                                    to='/admin/dashboard'
+                                    style={({ isActive }) => ({
+                                        background: isActive ? "rgb(251 145 0)" : "white",
+                                        textDecoration: 'none',
+                                        color: isActive ? '#241e1e' : '#6a5656',
+                                        fontWeight: isActive ? 'bold' : 'normal',
+                                        fontSize: "14px",
+                                        lineHeight: "21px",
+                                        letterSpacing: "0.03em",
+                                        borderRadius: '3px',
+                                        transition: '0.2s'
+                                    })}
+                                 >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            width: '100%',
+                                            flexDirection: 'row',
+                                            gap: '14px',
+                                            alignItems: 'center',
+                                            height: "45px",
+
+                                        }}
+                                    >
+                                        {/* ✅ Dynamically change icon color based on active state */}
+                                        <DashboardIcon
+                                            style={{
+                                                color: 'black',
+                                                position: 'relative',
+                                                left: '10px'
+                                            }}
+                                        />
+                                        Dashboard
+                                    </Box>
+                                </NavLink>
+                                <NavLink
                                     to='/hr/register'
                                     style={({ isActive }) => ({
                                         background: isActive ? "rgb(251 145 0)" : "white",
@@ -289,7 +320,7 @@ export default function Layout({ children }) {
                                         borderRadius: '3px',
                                         transition: '0.2s'
                                     })}
-                                >
+                                 >
                                     <Box
                                         sx={{
                                             display: 'flex',

@@ -9,7 +9,8 @@ export const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Your secret key from .env
-    req.userId = decoded._id; // Make _id available in req
+    req.userId = decoded._id;
+     // Make _id available in req
     next();
   } catch (err) {
     return res.status(401).json({ err: "Invalid token" });
