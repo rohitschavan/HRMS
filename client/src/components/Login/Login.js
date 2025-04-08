@@ -6,7 +6,7 @@ import {
   Typography,
   Button,
   TextField,
-  InputAdornment, IconButton 
+  InputAdornment, IconButton
 } from "@mui/material";
 import loginbg from "../../assets/loginbg.png";
 import { Link } from "react-router-dom";
@@ -16,40 +16,56 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo from '../../assets/logo.svg'
-const Login = () => {
+const Login = ({ role = "admin" }) => {
+  const apiMap = {
+    admin: {
+      endpoint: "http://localhost:9000/admin/login",
+      tokenKey: "token",
+      redirect: "/admin/dashboard",
+      title: "Welcome Admin",
+    },
+    hr: {
+      endpoint: "http://localhost:9000/hr/login",
+      tokenKey: "HRtoken",
+      redirect: "/hr/dashboard",
+      title: "Welcome HR",
+    },
+    employee: {
+      endpoint: "http://localhost:9000/employee/login",
+      tokenKey: "EMPtoken",
+      redirect: "/employee/dashboard",
+      title: "Welcome Employee",
+    },
+  };
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); 
-    const [showPassword, setShowPassword] = useState(false);// fix: should be string, not boolean
-    const navigate = useNavigate();
-  
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const { data } = await axios.post('http://localhost:9000/admin/login', {
-          email,
-          password,
-        });
-  
-        if (data?.err) {
-          toast.error(data.err);
-          return;
-        }
-  
-        if (data?.token) {
-          localStorage.setItem('token', data.token);
-          toast.success('Login Success');
-          navigate('admin/dashboard');
-        } else {
-          toast.error('Something went wrong');
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error('Server error. Try again later.');
+  const { endpoint, tokenKey, redirect, title } = apiMap[role];
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);// fix: should be string, not boolean
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(endpoint, { email, password });
+
+      if (data?.err) return toast.error(data.err);
+
+      if (data?.token) {
+        localStorage.setItem(tokenKey, data.token);
+        toast.success("Login Success");
+        navigate(redirect);
+      } else {
+        toast.error("Something went wrong");
       }
-    };
-  
+    } catch (err) {
+      console.error(err);
+      toast.error("Server error. Try again later.");
+    }
+  };
+
+
   return (
     <>
       <Grid container spacing={2}>
@@ -57,7 +73,7 @@ const Login = () => {
           <Box
             sx={{
               height: "100vh",
-              backgroundColor:'#fcf4ed' ,
+              backgroundColor: '#fcf4ed',
               backgroundPosition: "50% 50%",
             }}
           >
@@ -82,14 +98,14 @@ const Login = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  gap:'20px'
+                  gap: '20px'
                 }}
               >
-               <Box sx={{
-                width:'200px'
-               }} src={Logo} component='img'>
+                <Box sx={{
+                  width: '200px'
+                }} src={Logo} component='img'>
 
-               </Box>
+                </Box>
                 <Typography
                   className="poppins-thin"
                   sx={{
@@ -97,8 +113,8 @@ const Login = () => {
                     fontSize: "14px",
                     lineHeight: "27px",
                     color: "#201f1f",
-                    position:'relative',
-                    top:'10px'
+                    position: 'relative',
+                    top: '10px'
                   }}
                 >
                   Streamline Your HR Processes
@@ -131,8 +147,8 @@ const Login = () => {
           </Box>
         </Grid>
         <Grid size={{ lg: 6, sm: 12, md: 6, xs: 12 }}>
-        
-            <Box
+
+          <Box
             sx={{
               height: "100%",
               display: "flex",
@@ -140,96 +156,144 @@ const Login = () => {
               alignItems: "center",
               flexDirection: "column",
             }}
-           >
+          >
             <motion.div
-              initial={{ opacity: 0, scale:0.9  }}
-              animate={{ opacity: 1, scale:1}}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-            
+
             >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+
+                }}
+              >
+
+                <Typography
+                  sx={{
+                    fontFamily: "'Poppins'",
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "26px",
+                    lineHeight: "39px",
+                    color: "#333333",
+                  }}
+                >
+                {title}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: "'Poppins'",
+                    fontStyle: "normal",
+                    fontWeight: 400,
+                    fontSize: "18px",
+                    lineHeight: "27px",
+                    color: "#333333",
+                  }}
+                >
+                  Hello Again!, Please Login as a {role.toUpperCase()}
+                </Typography>
+
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  top: "23px",
+                }}
+              >
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+
+
+                  <TextField onChange={(e) => setEmail(e.target.value)}
+                    sx={{
+                      background: "#FFFFFF",
+                      width: "307px",
+                      height: "60px",
+                    }}
+                    placeholder="Email Address"
+                  ></TextField>
+                  <TextField InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowPassword(!showPassword)}>
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }} type={showPassword ? 'password' : 'text'} onChange={(e) => setPassword(e.target.value)}
+                    sx={{
+                      background: "#FFFFFF",
+
+                      width: "307px",
+                      height: "60px",
+                    }}
+                    placeholder="Password"
+                  ></TextField>
+
+
+                  <Button type="submit"
+                    sx={{
+                      width: "307px",
+                      height: "57px",
+
+                      backgroundColor: "rgb(251, 145, 0)",
+                      borderRadius: "3px",
+                      top: "14px",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "black",
+                        textTransform: "none",
+                        fontSize: { lg: "14px", sm: "10px" },
+                      }}
+                    >
+                      Login
+                    </Typography>
+                  </Button>
+                </form>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    position: "relative",
+                    top: "30px",
+                    gap: "0px",
+
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Link style={{}}>Forgot Password</Link>
+                  <Link to='/register'>Register</Link>
+                </Box>
+
+              </Box>
+            </motion.div>
+
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              gap: '30px'
+            }}>
+              <Link to='/login/hr'>
               
-              }}
-            >
-        
-              <Typography
-                sx={{
-                  fontFamily: "'Poppins'",
-                  fontStyle: "normal",
-                  fontWeight: 700,
-                  fontSize: "26px",
-                  lineHeight: "39px",
-                  color: "#333333",
-                }}
-              >
-                Hello Again!
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: "'Poppins'",
-                  fontStyle: "normal",
-                  fontWeight: 400,
-                  fontSize: "18px",
-                  lineHeight: "27px",
-                  color: "#333333",
-                }}
-              >
-                Welcome Back
-              </Typography>
-   
-            </Box>
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-                top: "23px",
-              }}
-              >
-                <form onSubmit={handleSubmit} style={{display:'flex',flexDirection:'column'}}>
-
-             
-              <TextField onChange={(e)=>setEmail(e.target.value)}
-                sx={{
-                  background: "#FFFFFF",
-                  width: "307px",
-                  height: "60px",
-                }}
-                placeholder="Email Address"
-              ></TextField>
-              <TextField InputProps={{
-    endAdornment: (
-      <InputAdornment position="end">
-        <IconButton onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <VisibilityOff /> : <Visibility />}
-        </IconButton>
-      </InputAdornment>
-    ),
-  }} type={showPassword ? 'password' : 'text'} onChange={(e)=>setPassword(e.target.value)}
-                sx={{
-                  background: "#FFFFFF",
-
-                  width: "307px",
-                  height: "60px",
-                }}
-                placeholder="Password"
-              ></TextField>
-             
-              
               <Button type="submit"
                 sx={{
-                  width: "307px",
-                  height: "57px",
-
-                  backgroundColor:"rgb(251, 145, 0)",
+                  width: "200px",
+                  height: "40px",
+                  backgroundColor: "rgb(251, 145, 0)",
                   borderRadius: "3px",
-                  top: "14px",
+                  top: "140px",
                 }}
               >
                 <Typography
@@ -239,30 +303,40 @@ const Login = () => {
                     fontSize: { lg: "14px", sm: "10px" },
                   }}
                 >
-                  Login
+                  Login as HR
                 </Typography>
               </Button>
-              </form>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  top: "30px",
-                  gap: "0px",
+              </Link>
 
-                  alignItems: "center",
-                  justifyContent: "space-between",
+              <Link to='/login/employee'>
+              <Button 
+                sx={{
+                  width: "200px",
+                  height: "40px",
+
+                  backgroundColor: "rgb(251, 145, 0)",
+                  borderRadius: "3px",
+                  top: "140px",
                 }}
-              >
-                <Link style={{}}>Forgot Password</Link>
-                <Link to='/register'>Register</Link>
-              </Box>
+               >
+                <Typography
+                  sx={{
+                    color: "black",
+                    textTransform: "none",
+                    fontSize: { lg: "14px", sm: "10px" },
+                  }}
+                >
+                  Login as Employee
+                </Typography>
+              </Button>
+              </Link>
+              
+
             </Box>
-              </motion.div>
+
           </Box>
 
-          
+
         </Grid>
       </Grid>
     </>

@@ -6,7 +6,7 @@ import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import RegisterHR from './components/Register/RegisterHR';
 import RegisterEmployee from './components/Register/RegisterEmployee';
-import Layout from './components/Layout';
+import AdminLayout from './components/Layouts/AdminLayout';
 import Dashboard from './components/Dashboard/Dashboard';
 import ManageEmp from './components/Manage/MangageEmp';
 import ManageHR from './components/Manage/ManageHR';
@@ -22,7 +22,9 @@ function App() {
 
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login role="admin" />} />
+          <Route path="/login/hr" element={<Login role="hr" />} />
+          <Route path="/login/employee" element={<Login role="employee" />} />
           <Route path="/register" element={<Register />} />
 
           {/* Protected Routes */}
@@ -30,7 +32,7 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <Layout />
+                <AdminLayout />
               </PrivateRoute>
             }
           >
@@ -42,7 +44,7 @@ function App() {
             <Route path="/manage/jobs" element={<ManageJob />} />
             <Route path="/jobs/create" element={<CreateNewJob />} />
           </Route>
-        
+
         </Routes>
       </Router>
     </AdminProvider>

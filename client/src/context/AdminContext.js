@@ -1,49 +1,58 @@
-// src/context/AdminContext.js
+// src/context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-// Create context
-const AdminContext = createContext();
+const AuthContext = createContext();
 
-// Provider component
 export const AdminProvider = ({ children }) => {
-  const [admin, setAdmin] = useState(null);
+  const [admin, setAdmin] = useState(null); // works for admin/hr/employee
   const [loading, setLoading] = useState(true);
 
-  // Fetch current admin
-  const fetchCurrentAdmin = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) return setLoading(false);
+  // Determine the role and API endpoint
+  const getAuthDetails = () => {
+    if (localStorage.getItem("token")) {
+      return { role: "admin", token: localStorage.getItem("token"), endpoint: "http://localhost:9000/admin/current" };
+    } else if (localStorage.getItem("HRtoken")) {
+      return { role: "hr", token: localStorage.getItem("HRtoken"), endpoint: "http://localhost:9000/hr/current" };
+    } else if (localStorage.getItem("EMPtoken")) {
+      return { role: "employee", token: localStorage.getItem("EMPtoken"), endpoint: "http://localhost:9000/employee/current" };
+    } else {
+      return null;
+    }
+  };
 
-      const { data } = await axios.get("http://localhost:9000/admin/current", {
+  const fetchCurrentUser = async () => {
+    try {
+      const authDetails = getAuthDetails();
+      if (!authDetails) return setLoading(false);
+
+      const { token, endpoint, role } = authDetails;
+
+      const { data } = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      
 
       if (data?.data) {
-      
-        setAdmin(data.data);
+        setAdmin({ ...data.data, role }); // Add role to user object
       }
     } catch (err) {
-      console.error("Fetch Admin Error:", err);
+      console.error("Fetch User Error:", err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCurrentAdmin();
+    fetchCurrentUser();
   }, []);
 
   return (
-    <AdminContext.Provider value={{ admin, setAdmin, loading }}>
+    <AuthContext.Provider value={{ admin, setAdmin, loading }}>
       {children}
-    </AdminContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-// Custom hook
-export const useAdmin = () => useContext(AdminContext);
+export const useAdmin = () => useContext(AuthContext);

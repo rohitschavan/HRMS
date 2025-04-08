@@ -12,18 +12,18 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListItem from '@mui/material/ListItem';
 import { Grid, TextField } from '@mui/material';
-import Logo from '../assets/logo.svg';
+import Logo from '../../assets/logo.svg';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
-import userIcon from '../assets/usericon.png';
+import userIcon from '../../assets/usericon.png';
 import { NavLink, Outlet, useMatch } from 'react-router-dom';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { useState } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import { useAdmin } from '../context/AdminContext';
-import AvatarMenu from './AvatarMenu';
+import { useAdmin } from '../../context/AdminContext';
+import AvatarMenu from '../AvatarMenu';
 const drawerWidth = 240;
 // rgb(251 145 0)
 const openedMixin = (theme) => ({
@@ -106,7 +106,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Layout({ children }) {
+export default function AdminLayout({ children }) {
     const {admin} = useAdmin()
     // const isActive = useMatch('/employee/register');
     const theme = useTheme();
