@@ -33,7 +33,7 @@ const CustomLineChart = ({ data }) => {
                 count: counts[date],
             }));
     
-        console.log("Chart Data:", finalChartData);
+      
         setChartData(finalChartData);
     }, [data]);
 

@@ -37,7 +37,7 @@ export default function ManageJob() {
         toast.error(data.err);
       } else {
         setAllEmp(data);
-        console.log(data);
+
       }
     } catch (error) {
       toast.error("Failed to fetch job.");

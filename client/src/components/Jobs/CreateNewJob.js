@@ -56,7 +56,7 @@ const {admin} = useAdmin();
 
       if (data?.err) toast.error(data.err);
       if (data?.ok) toast.success("Job Posted!");
-      console.log(data);
+   
     } catch (err) {
       console.log("Err", err);
     }

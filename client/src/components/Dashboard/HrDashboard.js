@@ -7,21 +7,40 @@ const HRDashboard = () => {
 
     const [allJobs, setAllJobs] = useState([]);
     const [allCandidates, setAllCandidates] = useState([]);
+    const [allEmp, setAllEmp] = useState([]);
 
 
     useEffect(() => {
 
         getAllJobs();
         getAllCandidates();
+        getAllEmp();
     }, [])
 
     const getAllJobs = async () => {
-        const { data } = await axios.get('http://localhost:9000/jobs');
+        try {
+            const { data } = await axios.get('http://localhost:9000/jobs');
+            if (data?.err) {
+                toast.error(data?.err);
+            } else {
+                // Sort by createdAt in descending order (newest first)
+                const sortedJobs = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setAllJobs(sortedJobs);
+            }
+        } catch (error) {
+            toast.error("Failed to fetch jobs");
+            console.error(error);
+        }
+    };
+
+    const getAllEmp = async () => {
+        const { data } = await axios.get('http://localhost:9000/employee');
         if (data?.err) {
             toast.error(data?.err);
         }
 
-        setAllJobs(data.data);
+        setAllEmp(data.data);
+
     }
 
     const getAllCandidates = async () => {
@@ -33,31 +52,51 @@ const HRDashboard = () => {
 
     }
 
-    console.log(allCandidates);
+
+
 
     const jobTypeCount = allJobs?.reduce((acc, job) => {
         const type = job.jobType.toLowerCase(); // normalize casing
         acc[type] = (acc[type] || 0) + 1;
         return acc;
     }, {});
+
+
     const statusCountsRaw = allCandidates?.allCandidates?.reduce((acc, candidate) => {
         const status = candidate.status;
         acc[status] = (acc[status] || 0) + 1;
         return acc;
-      }, {});
-      
-      // Ensure all enum statuses are represented even if 0
-      const statusCounts = {
+    }, {});
+
+    const DesignationRaw = allEmp?.reduce((acc, candidate) => {
+        const role = candidate.role;
+        acc[role] = (acc[role] || 0) + 1;
+        return acc;
+    }, {});
+
+    const ShortlistedCandidates = allCandidates?.allCandidates?.filter((e)=>{
+        return e.status === 'Shortlisted'
+    })
+
+    console.log('short',ShortlistedCandidates);
+    // Ensure all enum statuses are represented even if 0
+    const statusCounts = {
         Applied: statusCountsRaw?.Applied || 0,
         Shortlisted: statusCountsRaw?.Shortlisted || 0,
         Interviewed: statusCountsRaw?.Interviewed || 0,
-        Rejected: statusCountsRaw?.Rejected || 0
-      };
-      
-      console.log(statusCounts);
-      
 
-    console.log(statusCounts);
+        Rejected: statusCountsRaw?.Rejected || 0
+    };
+    const DesignationCounts = {
+        Manager: DesignationRaw?.Manager || 0,
+        TeamLead: DesignationRaw?.TeamLead || 0,
+
+        Dev: DesignationRaw?.Dev || 0
+    };
+
+
+
+
 
 
     return (
@@ -170,6 +209,8 @@ const HRDashboard = () => {
                                     lineHeight: "21px",
                                     color: "black",
                                     flex: "none",
+                                    position: 'relative',
+                                    top: '10px'
                                 }}>Total Candidates</Typography>
                                 <Typography sx={{
                                     fontFamily: "'Poppins'",
@@ -179,6 +220,9 @@ const HRDashboard = () => {
                                     lineHeight: "30px",
                                     color: "black",
                                     flex: "none",
+                                    position: 'relative',
+                                    top: '10px'
+
                                 }}>{allCandidates?.allCandidates?.length}</Typography>
                                 <br />
                                 <Typography sx={{
@@ -193,16 +237,16 @@ const HRDashboard = () => {
                                 {statusCounts &&
                                     Object.entries(statusCounts).map(([status, count]) => (
                                         <Typography sx={{
-                                            color:'white',
-                                            fontFamily:'Poppins',
-                                            fontSize:'14px',
-                                            color:'black'
-                                            
+                                            color: 'white',
+                                            fontFamily: 'Poppins',
+                                            fontSize: '14px',
+                                            color: 'black'
+
                                         }} key={status}>
                                             {status}:  <span style={{
-                                                fontFamily:'Poppins',
-                                                color:'black',
-                                                fontWeight:600
+                                                fontFamily: 'Poppins',
+                                                color: 'black',
+                                                fontWeight: 600
                                             }}>{count}</span>
                                         </Typography>
                                     ))
@@ -225,26 +269,240 @@ const HRDashboard = () => {
                                 borderRadius: "10px",
                                 flex: "none",
                                 order: 0,
-                                flexGrow: 1
+                                flexGrow: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center'
                             }}>
 
+                                <Typography sx={{
+                                    fontFamily: "'Poppins'",
+                                    fontStyle: "normal",
+                                    fontWeight: 400,
+                                    fontSize: "20px",
+                                    lineHeight: "21px",
+                                    color: "black",
+                                    flex: "none",
+                                }}>Total Employees</Typography>
+                                <Typography sx={{
+                                    fontFamily: "'Poppins'",
+                                    fontStyle: "normal",
+                                    fontWeight: 600,
+                                    fontSize: "24px",
+                                    lineHeight: "30px",
+                                    color: "black",
+                                    flex: "none",
+                                }}>{allEmp?.length}</Typography>
+                                <br />
+                                <Typography sx={{
+                                    fontFamily: "'Poppins'",
+                                    fontStyle: "normal",
+                                    fontWeight: 400,
+                                    fontSize: "20px",
+                                    lineHeight: "21px",
+                                    color: "black",
+                                    flex: "none",
+                                }}>Designation</Typography>
+                                {DesignationCounts &&
+                                    Object.entries(DesignationCounts).map(([status, count]) => (
+                                        <Typography sx={{
+                                            color: 'white',
+                                            fontFamily: 'Poppins',
+                                            fontSize: '14px',
+                                            color: 'black'
+
+                                        }} key={status}>
+                                            {status}:  <span style={{
+                                                fontFamily: 'Poppins',
+                                                color: 'black',
+                                                fontWeight: 600
+                                            }}>{count}</span>
+                                        </Typography>
+                                    ))
+                                }
                             </Box>
-                            <Box sx={{
-                                width: "25%",
-                                height: "200px",
-                                background:
-                                    "linear-gradient(101.59deg, rgba(255, 255, 255, 0.2) -0.16%, rgba(255, 255, 255, 0) 100%), #377DFF",
-                                borderRadius: "10px",
-                                flex: "none",
-                                order: 0,
-                                flexGrow: 1
-                            }}>
 
+                        </Box>
+                    </Grid>
+
+
+
+                    <Grid size={{ lg: 6 }}>
+                        <Box sx={{
+                            width: "360px",
+                            height: "220px",
+                            background: "#f4f4f4",
+                            borderRadius: "10px",
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'relative',
+                            left: '-14px',
+                            top: '35px'
+                         }}>
+                            <Box>
+                                <Typography sx={{
+                                    fontFamily: "'Poppins'",
+                                    fontStyle: "normal",
+                                    fontWeight: 400,
+                                    fontSize: "20px",
+                                    lineHeight: "21px",
+                                    color: "black",
+                                    flex: "none",
+                                }}>Recently Added Jobs</Typography>
+                                {
+                                    allJobs?.slice(0, 2).map((e) => {
+                                        return (
+                                            <>
+                                                <Box sx={{
+                                                    width: "320px",
+                                                    height: "58px",
+                                                    background: "#F9F9F9",
+                                                    borderRadius: "10px",
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    gap: '4px',
+                                                    paddingLeft: '10px',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    position: 'relative',
+                                                    top: '15px'
+                                                }}>
+                                                    <Typography sx={{
+                                                        fontFamily: "'Poppins'",
+                                                        fontStyle: "normal",
+                                                        fontWeight: 500,
+                                                        fontSize: "16px",
+                                                        lineHeight: "18px",
+                                                        color: "#333333",
+
+                                                    }}>
+                                                        {e.title}
+                                                    </Typography>
+
+                                                    <Box sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'row',
+                                                        gap: '10px'
+                                                    }}>
+                                                        <Typography sx={{
+                                                            fontFamily: "'Poppins'",
+                                                            fontStyle: "normal",
+                                                            fontWeight: 400,
+                                                            fontSize: "12px",
+                                                            lineHeight: "15px",
+                                                            color: "#8F8F8F",
+                                                        }}>{e.location}</Typography>
+                                                        <Typography sx={{
+                                                            fontFamily: "'Poppins'",
+                                                            fontStyle: "normal",
+                                                            fontWeight: 400,
+                                                            fontSize: "12px",
+                                                            lineHeight: "15px",
+                                                            color: "#8F8F8F",
+                                                        }}>{e.jobType}</Typography>
+                                                    </Box>
+
+
+                                                </Box>
+                                                <br />
+                                            </>
+                                        )
+                                    })
+                                }
+                            </Box>
+                        </Box>
+                    </Grid>
+                    <Grid size={{ lg: 6 }}>
+                    <Box sx={{
+                            width: "360px",
+                            height: "220px",
+                            background: "#f4f4f4",
+                            borderRadius: "10px",
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'relative',
+                            left: '12px',
+                            top: '35px'
+                         }}>
+                            <Box>
+                                <Typography sx={{
+                                    fontFamily: "'Poppins'",
+                                    fontStyle: "normal",
+                                    fontWeight: 400,
+                                    fontSize: "20px",
+                                    lineHeight: "21px",
+                                    color: "black",
+                                    flex: "none",
+                                }}>Shortlisted Candidates</Typography>
+                                {
+                                    ShortlistedCandidates?.slice(0, 2).map((e) => {
+                                        return (
+                                            <>
+                                                <Box sx={{
+                                                    width: "320px",
+                                                    height: "58px",
+                                                    background: "#F9F9F9",
+                                                    borderRadius: "10px",
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    gap: '4px',
+                                                    paddingLeft: '10px',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    position: 'relative',
+                                                    top: '15px'
+                                                }}>
+                                                    <Typography sx={{
+                                                        fontFamily: "'Poppins'",
+                                                        fontStyle: "normal",
+                                                        fontWeight: 500,
+                                                        fontSize: "16px",
+                                                        lineHeight: "18px",
+                                                        color: "#333333",
+
+                                                    }}>
+                                                        {e.name}
+                                                    </Typography>
+
+                                                    <Box sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'row',
+                                                        gap: '10px'
+                                                    }}>
+                                                        <Typography sx={{
+                                                            fontFamily: "'Poppins'",
+                                                            fontStyle: "normal",
+                                                            fontWeight: 400,
+                                                            fontSize: "12px",
+                                                            lineHeight: "15px",
+                                                            color: "#8F8F8F",
+                                                        }}>{e.email}</Typography>
+                                                        <Typography sx={{
+                                                            fontFamily: "'Poppins'",
+                                                            fontStyle: "normal",
+                                                            fontWeight: 400,
+                                                            fontSize: "12px",
+                                                            lineHeight: "15px",
+                                                            color: "#8F8F8F",
+                                                        }}>{e.mobile}</Typography>
+                                                    </Box>
+
+
+                                                </Box>
+                                                <br />
+                                            </>
+                                        )
+                                    })
+                                }
                             </Box>
                         </Box>
                     </Grid>
 
                 </Grid>
+
             </Container>
         </>
     )
