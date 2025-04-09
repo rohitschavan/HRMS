@@ -119,3 +119,29 @@ export const updateHR = async (req, res) => {
         res.status(500).json({ err: "Internal Server Error" });
     }
 };
+
+export const getCurrentHR = async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+  
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ err: 'Unauthorized: No token provided' });
+      }
+  
+      const token = authHeader.split(' ')[1];
+  
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace with your actual secret
+  
+      const hr = await HRDB.findById(decoded._id).select('-password'); // Avoid returning password
+  
+      if (!hr) {
+        return res.status(404).json({ err: 'HR not found' });
+      }
+  
+      return res.status(200).json({ data: hr });
+  
+    } catch (err) {
+      console.error('Error in getCurrentHR:', err);
+      return res.status(500).json({ err: 'Server Error' });
+    }
+  };

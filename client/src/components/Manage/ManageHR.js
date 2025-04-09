@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Modal from '@mui/material/Modal';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -19,12 +20,32 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
 };
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function ManageEmp() {
   const [emp, setAllEmp] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
   const [selectedEmp, setSelectedEmp] = useState(null);
+const[isHr,setIsHr] = useState('');
 
+const handleOpen = () => setOpenInfo(true);
+const handleClose = () => setOpenInfo(false);
+
+useEffect(()=>{
+  const HrToken = localStorage.getItem('HRtoken');
+  setIsHr(HrToken);
+})
   useEffect(() => {
     getAllEmp();
   }, []);
@@ -60,6 +81,7 @@ export default function ManageEmp() {
     setOpen(true);
   };
 
+ 
   const handleUpdateSubmit = async () => {
     try {
       await axios.put("http://localhost:9000/hr/update", selectedEmp);
@@ -84,13 +106,19 @@ export default function ManageEmp() {
     { field: 'role', headerName: 'Role', width: 120 },
     { field: 'status', headerName: 'Status', width: 120 },
     {
-      field: 'delete',
-      headerName: 'Delete',
+      field:` ${isHr ? 'Info' : 'delete'}`,
+      headerName: `${isHr ? 'Info' : 'delete'}`,
       width: 100,
       renderCell: (params) => (
-        <Button variant="contained" color="error" size="small" onClick={() => handleDelete(params.row)}>
+       isHr ? (<>
+       <Button onClick={handleOpen}>Info</Button>
+       </>) : (
+        <>
+         <Button variant="contained" color="error" size="small" onClick={() => handleDelete(params.row)}>
           Delete
         </Button>
+        </>
+       )
       ),
     },
     {
@@ -127,6 +155,22 @@ export default function ManageEmp() {
           <TextField label="Mobile" name="mobile" value={selectedEmp?.mobile || ''} onChange={handleChange} fullWidth margin="normal" />
           <TextField label="Role" name="role" value={selectedEmp?.role || ''} onChange={handleChange} fullWidth margin="normal" />
           <Button variant="contained" color="primary" onClick={handleUpdateSubmit} sx={{ mt: 2 }}>Save</Button>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openInfo}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+        
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            No Additional Information
+          </Typography>
         </Box>
       </Modal>
     </Paper>

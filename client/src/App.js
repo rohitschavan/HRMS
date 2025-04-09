@@ -14,6 +14,7 @@ import ManageJob from './components/Jobs/ManageJob';
 import CreateNewJob from './components/Jobs/CreateNewJob';
 import { AdminProvider } from './context/AdminContext';
 import PrivateRoute from './components/PrivateRoute';
+import HRDashboard from './components/Dashboard/HRDashboard';
 function App() {
   return (
     <AdminProvider>
@@ -38,6 +39,7 @@ function App() {
           >
             <Route path="/hr/register" element={<RegisterHR />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/hr/dashboard" element={<HRDashboard />} />
             <Route path="/employee/register" element={<RegisterEmployee />} />
             <Route path="/manage/employee" element={<ManageEmp />} />
             <Route path="/manage/hr" element={<ManageHR />} />

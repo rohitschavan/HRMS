@@ -18,6 +18,7 @@ const AvatarMenu = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('HRtoken');
         setAdmin(null);
         navigate('/');
     };

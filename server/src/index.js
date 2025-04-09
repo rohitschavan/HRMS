@@ -5,7 +5,8 @@ import Authrouter from '../routes/AuthRoutes.js';
 import Hrrouter from '../routes/HRRoutes.js';
 import employeeRouter from '../routes/EmployeeRoutes.js';
 import jobsRouter from '../routes/JobRoutes.js';
-import cors from 'cors'
+import cors from 'cors';
+import CandidatesRouter from '../routes/CandidateRoutes.js';
 const port = process.env.PORT;
 
 connectDB();
@@ -17,6 +18,7 @@ app.use('/',Authrouter);
 app.use('/',Hrrouter);
 app.use('/',employeeRouter);
 app.use('/',jobsRouter)
+app.use('/',CandidatesRouter)
 app.listen(port,(err)=>{
     if(err){
         console.log(err);

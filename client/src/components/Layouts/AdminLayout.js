@@ -24,6 +24,7 @@ import { useState } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { useAdmin } from '../../context/AdminContext';
 import AvatarMenu from '../AvatarMenu';
+import { useEffect } from 'react';
 const drawerWidth = 240;
 // rgb(251 145 0)
 const openedMixin = (theme) => ({
@@ -107,7 +108,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function AdminLayout({ children }) {
-    const {admin} = useAdmin()
+    const {admin} = useAdmin();
+    const[isHr,setIsHr] = useState('');
+
+    useEffect(()=>{
+        const HRtoken = localStorage.getItem('HRtoken');
+        setIsHr(HRtoken);
+    },[admin])
+  
+    
     // const isActive = useMatch('/employee/register');
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -272,7 +281,7 @@ export default function AdminLayout({ children }) {
                                 gap: '10px'
                             }}>
                                 <NavLink
-                                    to='/admin/dashboard'
+                                    to={isHr ? '/hr/dashboard' : '/admin/dashboard'}
                                     style={({ isActive }) => ({
                                         background: isActive ? "rgb(251 145 0)" : "white",
                                         textDecoration: 'none',
